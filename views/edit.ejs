@@ -1,0 +1,22 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS-312-MiniProject-1</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<!-- The body is a form that is autofilled with the selected posts data -->
+ <!-- The user can then edit and resubmit the post and it will update the list with the /update route -->
+<body>
+    <h1 class="title">Edit Blog Post</h1>
+    <form class="postForm" action="/update" method="POST">
+        <!-- the hidden value is to be able to pass the index of the post back to the .js file-->
+        <input type="hidden" name="id" value="<%= listIndex %>">
+        <input type="text" name="authorName" value="<%=blogPost.authorName%>">
+        <input type="text" name="blogTitle" value="<%=blogPost.blogTitle%>">
+        <input type="text" name="content" value="<%=blogPost.content%>">
+        <input class="submit" type="submit" value="Submit Edit">
+    </form>
+</body>
+
+
