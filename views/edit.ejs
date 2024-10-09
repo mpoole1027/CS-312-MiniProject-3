@@ -12,9 +12,8 @@
     <form class="postForm" action="/update" method="POST">
         <!-- the hidden value is to be able to pass the index of the post back to the .js file-->
         <input type="hidden" name="id" value="<%= listIndex %>">
-        <input type="text" name="authorName" value="<%=blogPost.authorName%>">
-        <input type="text" name="blogTitle" value="<%=blogPost.blogTitle%>">
-        <input type="text" name="content" value="<%=blogPost.content%>">
+        <input type="text" name="blogTitle" value="<%=blogPost.title%>">
+        <input type="text" name="content" value="<%=blogPost.body%>">
         <input class="submit" type="submit" value="Submit Edit">
     </form>
 </body>

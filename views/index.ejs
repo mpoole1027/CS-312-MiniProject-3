@@ -3,44 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS-312-MiniProject-1</title>
+    <title>CS-312-MiniProject-3</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1 class="title">Create New Blog Post</h1>
+    <% if (locals.currentUser) {%>
+        <h1 class="title">Blog Page!</h1>
+        <form action="/logout" method="POST">
+            <input class="submit" type="submit" value="Logout">
+        </form>
 
-    <!-- This is the initial create post form for the user to make new posts -->
-    <form class="postForm" action="/submit" method="POST">
-        <input type="text" name="authorName" placeholder="Author Name" required>
-        <input type="text" name="blogTitle" placeholder="Blog Title" required>
-        <input type="text" name="content" placeholder="Blog Content" required>
-        <input class="submit" type="submit" value="Create Post">
-    </form>
+        <!-- This is the initial create post form for the user to make new posts -->
+        <form class="postForm" action="/submit" method="POST">
+            <input type="text" name="blogTitle" placeholder="Blog Title" required>
+            <input type="text" name="content" placeholder="Blog Content" required>
+            <input class="submit" type="submit" value="Create Post">
+        </form>
 
-    <!-- This checks if the blogPosts lists has items and if it does it loops through and displays them -->
+        <!-- This checks if the blogPosts lists has items and if it does it loops through and displays them -->
     <% if (locals.blogPosts){ %>
         <% for (var index = 0; index < blogPosts.length; index++) { %>
         <div class="blogPost">
             <h1>
-                Author: <%=blogPosts[index].authorName%><br>
-                Title: <%=blogPosts[index].blogTitle%><br>
-                Created On: <%=blogPosts[index].creationTime%><br>
-                Blog: <%=blogPosts[index].content%>
+                Author: <%=blogPosts[index].creator_name%><br>
+                Title: <%=blogPosts[index].title%><br>
+                Created On: <%=blogPosts[index].date_created%><br>
+                Blog: <%=blogPosts[index].body%>
             </h1>
 
             <!-- also creates delete and edit buttons that go with each post -->
-            <form action="/delete" method="POST" style="display:inline;">
-                <input type="hidden" name="index" value="<%= index %>">
-                <button class="deleteButton" type="submit">Delete</button>
-            </form>
-
-            <form action="/edit" method="POST" style="display:inline;">
-                <input type="hidden" name="index" value="<%= index %>">
-                <button class="editButton" type="submit">Edit</button>
-            </form>
+             <% if (Number(locals.blogPosts[index].creator_user_id) === Number(locals.currentUser)) { %>
+                <form action="/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="index" value="<%= index %>">
+                    <button class="deleteButton" type="submit">Delete</button>
+                </form>
+    
+                <form action="/edit" method="POST" style="display:inline;">
+                    <input type="hidden" name="index" value="<%= index %>">
+                    <button class="editButton" type="submit">Edit</button>
+                </form>
+             <% } %>
         </div>
 
         <% }; %>
+    <% } %>
+
+    <% } else {%>
+        <h1 class="title">Get Started!</h1>
+        <form action="/sign_in_page" method="POST">
+            <input class="submit" type="submit" value="Sign In Here">
+        </form>
+        <form action="/sign_up_page" method="POST">
+            <input class="submit" type="submit" value="Sign Up Here">
+        </form>
     <% } %>
 </body>
 </html>

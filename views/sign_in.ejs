@@ -1,0 +1,19 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS-312-MiniProject-1</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1 class="title">Sign In</h1>
+    <% if (locals.error) { %>
+        <h1>Error! Username or Password were incorrect, please try again</h1>
+    <% } %>
+    <form class="postForm" action="/sign_in" method="POST">
+        <!-- the hidden value is to be able to pass the index of the post back to the .js file-->
+        <input type="text" name="username" placeholder="Name" required>
+        <input type="text" name="password" placeholder="Password" required>
+        <input class="submit" type="submit" value="Sign In">
+    </form>
+</body>
